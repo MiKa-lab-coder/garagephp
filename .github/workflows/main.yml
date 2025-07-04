@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
   steps:
-     - name: Chekout du code
+     - name: Checkout du code
        uses: actions/checkout@v4
 
      - name: Config PHP
