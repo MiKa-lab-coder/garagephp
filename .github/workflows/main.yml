@@ -11,20 +11,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps: # Indentation correcte pour 'steps' sous 'build'
+      - name: Checkout du code
+        uses: actions/checkout@v4
 
-  steps:
-     - name: Checkout du code
-       uses: actions/checkout@v4
+      - name: Config PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Indentation correcte pour les options sous 'with'
+          extensions: pdo_mysql, mbstring
+          tools: composer
 
-     - name: Config PHP
-       uses: shivammathur/setup-php@v2
-       with:
-       php-version: '8.2' #version de php de xampp
-       extensions: pdo_mysql, mbstring #ajoute les extensions nécéssaires
-       tools: composer #install composer
+      - name: Installation des dépendances composer
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-     - name: Instalations dependances composer
-       run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-     - name: Execution des tests phpUnit
-       run: vendor/bin/phpunit #assurer vous que phpUnit est configuré
+      - name: Exécution des tests phpUnit
+        run: vendor/bin/phpunit
