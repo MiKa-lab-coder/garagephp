@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: # Indentation correcte pour 'steps' sous 'build'
+    steps:
       - name: Checkout du code
         uses: actions/checkout@v4
 
