@@ -18,12 +18,15 @@ jobs:
       - name: Config PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2' # Indentation correcte pour les options sous 'with'
-          extensions: pdo_mysql, mbstring
-          tools: composer
+          php-version: '8.2' # ma version php de xampp
+          extensions: pdo_mysql, mbstring # ajout des extensions nécéssaires
+          tools: composer #install composer
 
       - name: Installation des dépendances composer
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Lint PHP files
+        run: find . -type f -name "*.php" ! -path "./vendor/*" -exec php -l {} \; (! grep "Errors parsing")
+
       - name: Exécution des tests phpUnit
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit # s'assurer que php unit est configuré
