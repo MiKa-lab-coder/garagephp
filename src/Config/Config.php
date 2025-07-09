@@ -1,6 +1,7 @@
 <?php
-namespace App\config;
+namespace App\Config;
 use Dotenv\Dotenv;
+
 class Config {
 
 //    //class config manuelle, cette class serta acharger le fichier .env, a le lire et separer
