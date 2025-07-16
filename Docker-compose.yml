@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -25,11 +23,12 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     volumes:
       - db_data:/var/lib/mysql
-      - ./sql/schema.sql/:docker-entrypoint-initdb.d/init.sql
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   db_data:
