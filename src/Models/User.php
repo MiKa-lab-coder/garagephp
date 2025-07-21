@@ -45,21 +45,37 @@ class User extends BaseModel
     //setter avec validations
     public function setUsername(int $username): self
     {
+        if(empty(trim($username))||strlen($username) >50) {
+            throw new InvalidArgumentException("invalid username");
+        }
+        $this->username = trim($username);
         return $this;
     }
 
     public function setEmail(string $email): self
     {
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException("invalid email");
+        }
+        $this->email = trim(strtolower($email));
         return $this;
     }
 
     public function setPassword(string $password): self
     {
+        if(strlen($password) < 8) {
+            throw new InvalidArgumentException("invalid password (too short)");
+        }
+        $this->password = password_hash($password, PASSWORD_ARGON2ID);
         return $this;
     }
 
     public function setRole(string $role): self
     {
+        if(!in_array($role, ["admin", "user"])) {
+            throw new InvalidArgumentException("invalid role");
+        }
+        $this->role = $role;
         return $this;
     }
 
